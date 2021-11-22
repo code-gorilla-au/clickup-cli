@@ -22,6 +22,7 @@ func init() {
 
 func Execute() error {
 	// add commands
+	rootCmd.AddCommand(configCmd())
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
 }

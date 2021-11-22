@@ -9,8 +9,8 @@ import (
 func versionCmd() *cobra.Command {
 	return &cobra.Command{
 		Use:   "version",
-		Short: "a new command",
-		Long:  "a new command",
+		Short: "prints out version of cli",
+		Long:  "prints out version of cli",
 		Run:   version,
 	}
 }
