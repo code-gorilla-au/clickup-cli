@@ -9,18 +9,18 @@ import (
 	"sync"
 )
 
-type Store struct {
+type Service struct {
 	path string
 	mx   sync.RWMutex
 }
 
-func New(path string) Store {
-	return Store{
+func New(path string) Service {
+	return Service{
 		path: path,
 	}
 }
 
-func (s *Store) Create() error {
+func (s *Service) Create() error {
 	s.mx.Lock()
 	defer s.mx.Unlock()
 	if err := os.MkdirAll(filepath.Dir(s.path), 0750); err != nil {
@@ -33,7 +33,7 @@ func (s *Store) Create() error {
 	return emptyFile.Close()
 }
 
-func (s *Store) Save(data interface{}) error {
+func (s *Service) Save(data interface{}) error {
 	s.mx.Lock()
 	defer s.mx.Unlock()
 	byteData, err := json.MarshalIndent(data, "", "  ")
@@ -46,7 +46,7 @@ func (s *Store) Save(data interface{}) error {
 	return nil
 }
 
-func (s *Store) Load(dest interface{}) error {
+func (s *Service) Load(dest interface{}) error {
 	s.mx.Lock()
 	defer s.mx.Unlock()
 	jsonFile, err := os.Open(s.path)
@@ -69,7 +69,7 @@ func (s *Store) Load(dest interface{}) error {
 	return nil
 }
 
-func (s *Store) Exists() bool {
+func (s *Service) Exists() bool {
 	info, err := os.Stat(s.path)
 	if os.IsNotExist(err) {
 		return false

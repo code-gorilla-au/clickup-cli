@@ -7,6 +7,7 @@ import (
 
 	"github.com/code-gorilla-au/clickup-cli/internal/chalk"
 	"github.com/code-gorilla-au/clickup-cli/internal/commands"
+	"github.com/code-gorilla-au/clickup-cli/internal/store"
 )
 
 const (
@@ -27,7 +28,8 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
-	if err := commands.Execute(path); err != nil {
+	ss := store.New(path)
+	if err := commands.Execute(&ss); err != nil {
 		os.Exit(1)
 	}
 }

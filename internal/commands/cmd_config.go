@@ -18,7 +18,7 @@ func configCmd() *cobra.Command {
 func config(cmd *cobra.Command, args []string) {
 
 	if len(args) == 0 {
-		log.Println("at least 1 argument name must be provided")
+		log.Println("personal access token is required")
 		return
 	}
 }
