@@ -1,0 +1,9 @@
+---
+to: internal/commands/cmd_{{ .Name | caseSnake }}_test.go
+---
+
+package commands
+
+func Test_{{ .Name | caseCamel }}Func(t *testing.T) {
+
+}

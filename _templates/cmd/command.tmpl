@@ -15,7 +15,7 @@ func {{.Name | caseCamel }}Cmd() *cobra.Command {
 		Use:   "{{ .Name | caseLower }}",
 		Short: "a new command",
 		Long:  "a new command",
-		Run:   {{ .Name | caseCamel }},
+		Run:   {{ .Name | caseCamel }}Func,
 	}
 }
 

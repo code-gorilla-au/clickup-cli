@@ -5,6 +5,10 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const (
+	baseURL = "https://api.clickup.com/api"
+)
+
 var (
 	personalToken string
 )
@@ -25,8 +29,9 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&dryrunFlag, "dry-run", "d", false, "run the cli in dry run mode")
 }
 
-func Execute(storeSvc *store.Service, fetchSvc client) error {
+func Execute(storeSvc *store.Service, fetchSvc fetchClient) error {
 	// add commands
+	rootCmd.AddCommand(teamsCmd(fetchSvc))
 	rootCmd.AddCommand(configCmd(storeSvc))
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
