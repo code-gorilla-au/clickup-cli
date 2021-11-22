@@ -20,7 +20,7 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&dryrunFlag, "dry-run", "d", false, "run the cli in dry run mode")
 }
 
-func Execute() error {
+func Execute(storePath string) error {
 	// add commands
 	rootCmd.AddCommand(configCmd())
 	rootCmd.AddCommand(versionCmd())
