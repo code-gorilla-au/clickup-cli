@@ -6,7 +6,7 @@ import (
 )
 
 var (
-	storeService *store.Service
+	personalToken string
 )
 
 var (
@@ -26,9 +26,19 @@ func init() {
 }
 
 func Execute(storeSvc *store.Service) error {
-	storeService = storeSvc
 	// add commands
-	rootCmd.AddCommand(configCmd())
+	rootCmd.AddCommand(configCmd(storeSvc))
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
+}
+
+func beforeCmdRun(ss storage) cmdWithErrorFunc {
+	return func(cmd *cobra.Command, args []string) error {
+		var config Config
+		if err := ss.Load(&config); err != nil {
+			return err
+		}
+		personalToken = config.Token
+		return nil
+	}
 }

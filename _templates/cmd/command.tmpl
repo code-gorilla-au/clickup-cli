@@ -19,7 +19,7 @@ func {{.Name | caseCamel }}Cmd() *cobra.Command {
 	}
 }
 
-func {{ .Name | caseCamel }}(cmd *cobra.Command, args []string) {
+func {{ .Name | caseCamel }}Func(cmd *cobra.Command, args []string) {
 
 	if len(args) == 0 {
 		log.Println("at least 1 argument name must be provided")
