@@ -31,7 +31,7 @@ func init() {
 
 func Execute(storeSvc *store.Service, fetchSvc fetchClient) error {
 	// add commands
-	rootCmd.AddCommand(teamsCmd(fetchSvc))
+	rootCmd.AddCommand(teamsCmd(storeSvc, fetchSvc))
 	rootCmd.AddCommand(configCmd(storeSvc))
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
