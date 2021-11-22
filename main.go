@@ -30,7 +30,11 @@ func main() {
 		os.Exit(1)
 	}
 	ss := store.New(path)
-	fetch := fetch.New(nil)
+	fetch := fetch.New(&fetch.Options{
+		DefaultHeaders: map[string]string{
+			"Content-Type": "application/json",
+		},
+	})
 	if err := commands.Execute(&ss, fetch); err != nil {
 		os.Exit(1)
 	}
