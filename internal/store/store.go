@@ -5,12 +5,32 @@ import (
 	"io"
 	"log"
 	"os"
+	"path/filepath"
 	"sync"
 )
 
 type Store struct {
 	path string
 	mx   sync.RWMutex
+}
+
+func New(path string) Store {
+	return Store{
+		path: path,
+	}
+}
+
+func (s *Store) Create() error {
+	s.mx.Lock()
+	defer s.mx.Unlock()
+	if err := os.MkdirAll(filepath.Dir(s.path), 0750); err != nil {
+		return err
+	}
+	emptyFile, err := os.Create(s.path)
+	if err != nil {
+		return err
+	}
+	return emptyFile.Close()
 }
 
 func (s *Store) Save(data interface{}) error {
