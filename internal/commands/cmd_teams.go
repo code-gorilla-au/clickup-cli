@@ -15,9 +15,12 @@ var (
 
 func teamsCmd(storeSvc storage, fetchSvc fetchClient) *cobra.Command {
 	return &cobra.Command{
-		Use:     "teams",
-		Short:   "a new command",
-		Long:    "a new command",
+		Use:   "teams",
+		Short: "Get all of the user's workspace (teams)",
+		Long: `
+		Teams is the legacy term for what are now called Workspaces in ClickUp. 
+		For compatibility, the term team is still used in this API. 
+		This is not the new "Teams" feature which represents a group of users.`,
 		PreRunE: beforeRunCmd(storeSvc),
 		RunE:    teamsFunc(fetchSvc),
 	}
