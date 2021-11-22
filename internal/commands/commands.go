@@ -37,7 +37,7 @@ func Execute(storeSvc *store.Service, fetchSvc fetchClient) error {
 	return rootCmd.Execute()
 }
 
-func beforeCmdRun(storeSvc storage) cmdWithErrorFunc {
+func beforeRunCmd(storeSvc storage) cmdWithErrorFunc {
 	return func(cmd *cobra.Command, args []string) error {
 		var config Config
 		if err := storeSvc.Load(&config); err != nil {

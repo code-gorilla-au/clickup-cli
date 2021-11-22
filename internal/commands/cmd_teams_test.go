@@ -5,4 +5,5 @@ import (
 )
 
 func Test_teamsFunc(t *testing.T) {
+	t.Skip()
 }

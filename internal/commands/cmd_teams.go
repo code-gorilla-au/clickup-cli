@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/code-gorilla-au/clickup-cli/internal/formats"
 	"github.com/spf13/cobra"
 )
 
@@ -17,7 +18,7 @@ func teamsCmd(storeSvc storage, fetchSvc fetchClient) *cobra.Command {
 		Use:     "teams",
 		Short:   "a new command",
 		Long:    "a new command",
-		PreRunE: beforeCmdRun(storeSvc),
+		PreRunE: beforeRunCmd(storeSvc),
 		RunE:    teamsFunc(fetchSvc),
 	}
 }
@@ -41,12 +42,7 @@ func teamsFunc(fetchSvc fetchClient) cmdWithErrorFunc {
 			log.Println("Error decoding response: ", err)
 			return err
 		}
-		data, err := json.MarshalIndent(&respBody, " ", "  ")
-		if err != nil {
-			log.Println("Error marshaling response", err)
-			return err
-		}
-		log.Println(string(data))
+		formats.PrintJSON(&respBody)
 		return nil
 	}
 }
