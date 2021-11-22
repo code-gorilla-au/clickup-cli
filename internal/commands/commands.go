@@ -25,17 +25,17 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&dryrunFlag, "dry-run", "d", false, "run the cli in dry run mode")
 }
 
-func Execute(storeSvc *store.Service) error {
+func Execute(storeSvc *store.Service, fetchSvc client) error {
 	// add commands
 	rootCmd.AddCommand(configCmd(storeSvc))
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
 }
 
-func beforeCmdRun(ss storage) cmdWithErrorFunc {
+func beforeCmdRun(storeSvc storage) cmdWithErrorFunc {
 	return func(cmd *cobra.Command, args []string) error {
 		var config Config
-		if err := ss.Load(&config); err != nil {
+		if err := storeSvc.Load(&config); err != nil {
 			return err
 		}
 		personalToken = config.Token

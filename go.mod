@@ -3,6 +3,7 @@ module github.com/code-gorilla-au/clickup-cli
 go 1.17
 
 require (
+	github.com/code-gorilla-au/fetch v0.0.0-20210630224926-04176cfb61a4
 	github.com/mattn/go-isatty v0.0.14
 	github.com/spf13/cobra v1.2.1
 )

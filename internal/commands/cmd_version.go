@@ -11,10 +11,10 @@ func versionCmd() *cobra.Command {
 		Use:   "version",
 		Short: "prints out version of cli",
 		Long:  "prints out version of cli",
-		Run:   version,
+		Run:   versionFunc,
 	}
 }
 
-func version(cmd *cobra.Command, args []string) {
+func versionFunc(cmd *cobra.Command, args []string) {
 	log.Println(versionFlag)
 }

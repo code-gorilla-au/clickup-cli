@@ -8,6 +8,7 @@ import (
 	"github.com/code-gorilla-au/clickup-cli/internal/chalk"
 	"github.com/code-gorilla-au/clickup-cli/internal/commands"
 	"github.com/code-gorilla-au/clickup-cli/internal/store"
+	"github.com/code-gorilla-au/fetch"
 )
 
 const (
@@ -29,7 +30,8 @@ func main() {
 		os.Exit(1)
 	}
 	ss := store.New(path)
-	if err := commands.Execute(&ss); err != nil {
+	fetch := fetch.New(nil)
+	if err := commands.Execute(&ss, fetch); err != nil {
 		os.Exit(1)
 	}
 }
