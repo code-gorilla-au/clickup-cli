@@ -20,7 +20,7 @@ scan: ## run scan
 build: log
 	go build $(GO_BUILD_FLAGS) -o $(APP_NAME)
 
-generate_cmd: ## gernate new command
+generate_cmd: ## gernate new command eg: make generate_cmd CMD_NAME=unnamed
 	pyrotic generate cmd --name $(CMD_NAME)
 
 

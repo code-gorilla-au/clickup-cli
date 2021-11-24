@@ -10,7 +10,7 @@ const (
 )
 
 var (
-	personalToken string
+	commandsConfig Config
 )
 
 var (
@@ -39,7 +39,8 @@ func Execute(storeSvc *store.Service, clickSvc clickupClient) error {
 	configCmd.PersistentFlags().StringVarP(&teamIDFlag, "team-id", "i", "", "your workspace / team id")
 
 	// add commands
-	rootCmd.AddCommand(teamsCmd(storeSvc, clickSvc))
+	rootCmd.AddCommand(spacesCmd(clickSvc))
+	rootCmd.AddCommand(teamsCmd(storeSvc, clickSvc, commandsConfig))
 	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
@@ -51,7 +52,7 @@ func beforeRunCmd(storeSvc storage) cmdWithErrorFunc {
 		if err := storeSvc.Load(&config); err != nil {
 			return err
 		}
-		personalToken = config.Token
+		commandsConfig = config
 		return nil
 	}
 }
