@@ -49,9 +49,9 @@ func (s *Service) GetAllWorkspaces(token string) (Teams, error) {
 	return teams, nil
 }
 
-func (s *Service) GetSpaces(workID string, token string) ([]Space, error) {
+func (s *Service) GetSpaces(workID string, token string) (Spaces, error) {
 	url := fmt.Sprintf("%s/%s/space", teamsURL, workID)
-	var spaces []Space
+	var spaces Spaces
 	resp, err := s.fetch.Get(url, map[string]string{
 		"Authorization": token,
 	})

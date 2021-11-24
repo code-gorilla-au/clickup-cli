@@ -6,7 +6,7 @@ import (
 
 type clickupClient interface {
 	GetAllWorkspaces(token string) (clicky.Teams, error)
-	GetSpaces(workID string, token string) ([]clicky.Space, error)
+	GetSpaces(workID string, token string) (clicky.Spaces, error)
 }
 
 type storage interface {

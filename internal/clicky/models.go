@@ -67,3 +67,7 @@ type Space struct {
 	MultipleAssignees bool     `json:"multiple_assignees,omitempty"`
 	Features          Features `json:"features,omitempty"`
 }
+
+type Spaces struct {
+	Spaces []Space `json:"spaces,omitempty"`
+}
