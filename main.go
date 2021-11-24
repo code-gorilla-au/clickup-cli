@@ -6,6 +6,7 @@ import (
 	"path/filepath"
 
 	"github.com/code-gorilla-au/clickup-cli/internal/chalk"
+	"github.com/code-gorilla-au/clickup-cli/internal/clicky"
 	"github.com/code-gorilla-au/clickup-cli/internal/commands"
 	"github.com/code-gorilla-au/clickup-cli/internal/store"
 	"github.com/code-gorilla-au/fetch"
@@ -29,13 +30,14 @@ func main() {
 	if err != nil {
 		os.Exit(1)
 	}
-	ss := store.New(path)
+	storeSvc := store.New(path)
 	fetch := fetch.New(&fetch.Options{
 		DefaultHeaders: map[string]string{
 			"Content-Type": "application/json",
 		},
 	})
-	if err := commands.Execute(&ss, fetch); err != nil {
+	clickSvc := clicky.New(fetch)
+	if err := commands.Execute(&storeSvc, &clickSvc); err != nil {
 		os.Exit(1)
 	}
 }

@@ -28,8 +28,8 @@ func New(fetch fetchClient) Service {
 	}
 }
 
-func (s *Service) GetAllWorkspaces(token string) ([]Teams, error) {
-	var teams []Teams
+func (s *Service) GetAllWorkspaces(token string) (Teams, error) {
+	var teams Teams
 	resp, err := s.fetch.Get(teamsURL, map[string]string{
 		"Authorization": token,
 	})

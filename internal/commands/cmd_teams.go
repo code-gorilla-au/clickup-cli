@@ -1,7 +1,6 @@
 package commands
 
 import (
-	"encoding/json"
 	"fmt"
 	"log"
 
@@ -13,7 +12,7 @@ var (
 	teamsURL = fmt.Sprintf("%s/v2/team", baseURL)
 )
 
-func teamsCmd(storeSvc storage, fetchSvc fetchClient) *cobra.Command {
+func teamsCmd(storeSvc storage, clickSvc clickupClient) *cobra.Command {
 	return &cobra.Command{
 		Use:   "teams",
 		Short: "Get all of the user's workspace (teams)",
@@ -22,30 +21,18 @@ func teamsCmd(storeSvc storage, fetchSvc fetchClient) *cobra.Command {
 		For compatibility, the term team is still used in this API. 
 		This is not the new "Teams" feature which represents a group of users.`,
 		PreRunE: beforeRunCmd(storeSvc),
-		RunE:    teamsFunc(fetchSvc),
+		RunE:    teamsFunc(clickSvc),
 	}
 }
 
-func teamsFunc(fetchSvc fetchClient) cmdWithErrorFunc {
+func teamsFunc(clickSvc clickupClient) cmdWithErrorFunc {
 	return func(cmd *cobra.Command, args []string) error {
-		resp, err := fetchSvc.Get(teamsURL, map[string]string{
-			"Authorization": personalToken,
-		})
+		resp, err := clickSvc.GetAllWorkspaces(personalToken)
 		if err != nil {
 			log.Println("Error getting teams: ", err)
 			return err
 		}
-		defer func() {
-			if err := resp.Body.Close(); err != nil {
-				log.Println("Error closing body: ", err)
-			}
-		}()
-		var respBody map[string]interface{}
-		if err := json.NewDecoder(resp.Body).Decode(&respBody); err != nil {
-			log.Println("Error decoding response: ", err)
-			return err
-		}
-		formats.PrintJSON(&respBody)
+		formats.PrintJSON(resp)
 		return nil
 	}
 }

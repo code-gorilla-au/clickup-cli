@@ -1,16 +1,12 @@
 package commands
 
 import (
-	"io"
-	"net/http"
+	"github.com/code-gorilla-au/clickup-cli/internal/clicky"
 )
 
-type fetchClient interface {
-	Get(url string, headers map[string]string) (resp *http.Response, err error)
-	Post(url string, body io.Reader, headers map[string]string) (resp *http.Response, err error)
-	Put(url string, body io.Reader, headers map[string]string) (resp *http.Response, err error)
-	Patch(url string, body io.Reader, headers map[string]string) (resp *http.Response, err error)
-	Delete(url string, body io.Reader, headers map[string]string) (resp *http.Response, err error)
+type clickupClient interface {
+	GetAllWorkspaces(token string) (clicky.Teams, error)
+	GetSpaces(workID string, token string) ([]clicky.Space, error)
 }
 
 type storage interface {

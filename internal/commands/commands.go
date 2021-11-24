@@ -33,13 +33,13 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&dryrunFlag, "dry-run", "d", false, "run the cli in dry run mode")
 }
 
-func Execute(storeSvc *store.Service, fetchSvc fetchClient) error {
+func Execute(storeSvc *store.Service, clickSvc clickupClient) error {
 	configCmd := configCmd(storeSvc)
 	configCmd.PersistentFlags().StringVarP(&tokenFlag, "token", "t", "", "your personal access token")
 	configCmd.PersistentFlags().StringVarP(&teamIDFlag, "team-id", "i", "", "your workspace / team id")
 
 	// add commands
-	rootCmd.AddCommand(teamsCmd(storeSvc, fetchSvc))
+	rootCmd.AddCommand(teamsCmd(storeSvc, clickSvc))
 	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()

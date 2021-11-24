@@ -1,14 +1,14 @@
 package clicky
 
 type User struct {
-	ID             string `json:"id,omitempty"`
+	ID             int    `json:"id,omitempty"`
 	Color          string `json:"color,omitempty"`
 	CustomRole     string `json:"custom_role,omitempty"`
-	DateInvited    int64  `json:"date_invited,omitempty"`
-	DateJoined     int64  `json:"date_joined,omitempty"`
+	DateInvited    string `json:"date_invited,omitempty"`
+	DateJoined     string `json:"date_joined,omitempty"`
 	Email          string `json:"email,omitempty"`
 	Initials       string `json:"initials,omitempty"`
-	LastActive     int64  `json:"last_active,omitempty"`
+	LastActive     string `json:"last_active,omitempty"`
 	ProfilePicture string `json:"profile_picture,omitempty"`
 	Role           int    `json:"role,omitempty"`
 	Username       string `json:"username,omitempty"`
