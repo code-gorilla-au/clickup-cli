@@ -7,6 +7,11 @@ import (
 	"github.com/spf13/cobra"
 )
 
+var (
+	ErrNoToken  = errors.New("no token")
+	ErrNoTeamID = errors.New("no team / workspace id")
+)
+
 func configCmd(ss storage) *cobra.Command {
 	return &cobra.Command{
 		Use:   "config",
@@ -18,11 +23,19 @@ func configCmd(ss storage) *cobra.Command {
 
 func configFunc(ss storage) cmdWithErrorFunc {
 	return func(cmd *cobra.Command, args []string) error {
-		if len(args) == 0 {
-			log.Println("personal access token is required")
-			return errors.New("no args")
+		if tokenFlag == "" {
+			log.Println("Personal token is required")
+			return ErrNoToken
 		}
-		config := Config{Token: args[0]}
+		if teamIDFlag == "" {
+			log.Println("Default team id is required")
+			return ErrNoTeamID
+		}
+		config := Config{
+			Token:              tokenFlag,
+			DefaultWorkspaceID: teamIDFlag,
+		}
+
 		if ss.Exists() {
 			if err := ss.Save(&config); err != nil {
 				log.Println("Error saving token")

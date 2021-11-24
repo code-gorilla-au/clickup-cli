@@ -17,6 +17,10 @@ var (
 	// root vars
 	dryrunFlag  = false
 	versionFlag = "v.dev-1.0.0"
+
+	// config vars
+	tokenFlag  string
+	teamIDFlag string
 )
 
 var rootCmd = &cobra.Command{
@@ -30,9 +34,13 @@ func init() {
 }
 
 func Execute(storeSvc *store.Service, fetchSvc fetchClient) error {
+	configCmd := configCmd(storeSvc)
+	configCmd.PersistentFlags().StringVarP(&tokenFlag, "token", "t", "", "your personal access token")
+	configCmd.PersistentFlags().StringVarP(&teamIDFlag, "team-id", "i", "", "your workspace / team id")
+
 	// add commands
 	rootCmd.AddCommand(teamsCmd(storeSvc, fetchSvc))
-	rootCmd.AddCommand(configCmd(storeSvc))
+	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
 }
