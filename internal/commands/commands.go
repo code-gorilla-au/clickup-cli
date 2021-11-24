@@ -1,16 +1,10 @@
 package commands
 
 import (
+	"log"
+
 	"github.com/code-gorilla-au/clickup-cli/internal/store"
 	"github.com/spf13/cobra"
-)
-
-const (
-	baseURL = "https://api.clickup.com/api"
-)
-
-var (
-	commandsConfig Config
 )
 
 var (
@@ -34,25 +28,27 @@ func init() {
 }
 
 func Execute(storeSvc *store.Service, clickSvc clickupClient) error {
+	config, err := loadConfig(storeSvc)
+	if err != nil {
+		log.Println("Error loading config ", err)
+		return err
+	}
 	configCmd := configCmd(storeSvc)
 	configCmd.PersistentFlags().StringVarP(&tokenFlag, "token", "t", "", "your personal access token")
 	configCmd.PersistentFlags().StringVarP(&teamIDFlag, "team-id", "i", "", "your workspace / team id")
 
 	// add commands
 	rootCmd.AddCommand(spacesCmd(clickSvc))
-	rootCmd.AddCommand(teamsCmd(storeSvc, clickSvc, commandsConfig))
+	rootCmd.AddCommand(teamsCmd(storeSvc, clickSvc, config))
 	rootCmd.AddCommand(configCmd)
 	rootCmd.AddCommand(versionCmd())
 	return rootCmd.Execute()
 }
 
-func beforeRunCmd(storeSvc storage) cmdWithErrorFunc {
-	return func(cmd *cobra.Command, args []string) error {
-		var config Config
-		if err := storeSvc.Load(&config); err != nil {
-			return err
-		}
-		commandsConfig = config
-		return nil
+func loadConfig(storeSvc storage) (Config, error) {
+	var config Config
+	if err := storeSvc.Load(&config); err != nil {
+		return config, err
 	}
+	return config, nil
 }
