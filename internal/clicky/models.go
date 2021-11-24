@@ -71,3 +71,47 @@ type Space struct {
 type Spaces struct {
 	Spaces []Space `json:"spaces,omitempty"`
 }
+
+type ListStatus struct {
+	Status    string `json:"status,omitempty"`
+	Color     string `json:"color,omitempty"`
+	HideLabel bool   `json:"hide_label,omitempty"`
+}
+
+type ListPriority struct {
+	Priority string `json:"priority,omitempty"`
+	Color    string `json:"color,omitempty"`
+}
+
+type List struct {
+	ID               string       `json:"id,omitempty"`
+	Name             string       `json:"name,omitempty"`
+	Orderindex       int          `json:"orderindex,omitempty"`
+	Content          string       `json:"content,omitempty"`
+	Status           ListStatus   `json:"status,omitempty"`
+	Priority         ListPriority `json:"priority,omitempty"`
+	Assignee         string       `json:"assignee,omitempty"`
+	TaskCount        string       `json:"task_count,omitempty"`
+	DueDate          string       `json:"due_date,omitempty"`
+	StartDate        string       `json:"start_date,omitempty"`
+	Archived         bool         `json:"archived,omitempty"`
+	OverrideStatuses bool         `json:"override_statuses,omitempty"`
+	PermissionLevel  string       `json:"permission_level,omitempty"`
+}
+
+type FolderSpace struct {
+	ID     string `json:"id,omitempty"`
+	Name   string `json:"name,omitempty"`
+	Access bool   `json:"access,omitempty"`
+}
+
+type Folder struct {
+	ID               string      `json:"id,omitempty"`
+	Name             string      `json:"name,omitempty"`
+	Orderindex       int         `json:"orderindex,omitempty"`
+	OverrideStatuses bool        `json:"override_statuses,omitempty"`
+	Hidden           bool        `json:"hidden,omitempty"`
+	Space            FolderSpace `json:"space,omitempty"`
+	TaskCount        int         `json:"task_count,omitempty"`
+	Lists            []List      `json:"lists,omitempty"`
+}

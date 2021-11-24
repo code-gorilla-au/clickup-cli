@@ -13,7 +13,8 @@ const (
 )
 
 var (
-	teamsURL = fmt.Sprintf("%s/v2/team", baseURL)
+	teamsURL   = fmt.Sprintf("%s/v2/team", baseURL)
+	foldersURL = fmt.Sprintf("%s/v2/space", baseURL)
 )
 
 type Service struct {
@@ -69,4 +70,26 @@ func (s *Service) GetSpaces(workID string, token string) (Spaces, error) {
 		return spaces, err
 	}
 	return spaces, nil
+}
+
+func (s *Service) GetFolders(spaceID string, token string) ([]Folder, error) {
+	url := fmt.Sprintf("%s/%s/folder", foldersURL, spaceID)
+	folders := []Folder{}
+	resp, err := s.fetch.Get(url, map[string]string{
+		"Authorization": token,
+	})
+	if err != nil {
+		log.Println("Error getting teams: ", err)
+		return folders, err
+	}
+	defer func() {
+		if err := resp.Body.Close(); err != nil {
+			log.Println("Error closing body: ", err)
+		}
+	}()
+	if err := json.NewDecoder(resp.Body).Decode(&folders); err != nil {
+		log.Println("Error decoding response: ", err)
+		return folders, err
+	}
+	return folders, nil
 }
