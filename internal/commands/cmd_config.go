@@ -35,6 +35,7 @@ func configFunc(ss storage) cmdWithErrorFunc {
 				log.Println("Error saving token")
 				return err
 			}
+			return nil
 		}
 		if err := ss.Create(); err != nil {
 			log.Println("Error creating config file")
