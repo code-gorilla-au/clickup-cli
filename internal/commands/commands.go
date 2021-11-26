@@ -1,7 +1,9 @@
 package commands
 
 import (
+	"errors"
 	"log"
+	"os"
 
 	"github.com/code-gorilla-au/clickup-cli/internal/store"
 	"github.com/spf13/cobra"
@@ -46,9 +48,24 @@ func Execute(storeSvc *store.Service, clickSvc clickupClient) error {
 	return rootCmd.Execute()
 }
 
+func checkPreReqConfig(config Config) cmdWithErrorFunc {
+	return func(cmd *cobra.Command, args []string) error {
+		if config.Token == "" {
+			return ErrNoToken
+		}
+		if config.DefaultWorkspaceID == "" {
+			return ErrNoWorkspaceID
+		}
+		return nil
+	}
+}
+
 func loadConfig(storeSvc storage) (Config, error) {
 	var config Config
 	if err := storeSvc.Load(&config); err != nil {
+		if errors.Is(err, os.ErrNotExist) {
+			return config, nil
+		}
 		return config, err
 	}
 	return config, nil

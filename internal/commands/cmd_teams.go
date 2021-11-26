@@ -15,7 +15,8 @@ func teamsCmd(storeSvc storage, clickSvc clickupClient, config Config) *cobra.Co
 		Teams is the legacy term for what are now called Workspaces in ClickUp. 
 		For compatibility, the term team is still used in this API. 
 		This is not the new "Teams" feature which represents a group of users.`,
-		RunE: teamsFunc(clickSvc, config),
+		PreRunE: checkPreReqConfig(config),
+		RunE:    teamsFunc(clickSvc, config),
 	}
 }
 

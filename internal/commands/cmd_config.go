@@ -23,7 +23,7 @@ func configFunc(ss storage) cmdWithErrorFunc {
 		}
 		if teamIDFlag == "" {
 			log.Println("Default team id is required")
-			return ErrNoTeamID
+			return ErrNoWorkspaceID
 		}
 		config := Config{
 			Token:              tokenFlag,

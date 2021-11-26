@@ -9,10 +9,11 @@ import (
 
 func foldersCmd(clickSvc clickupClient, config Config) *cobra.Command {
 	return &cobra.Command{
-		Use:   "folders <space-id>",
-		Short: "Get all folders for a workspace",
-		Long:  "Get all folders for a workspace",
-		RunE:  foldersFunc(clickSvc, config),
+		Use:     "folders <space-id>",
+		Short:   "Get all folders for a workspace",
+		Long:    "Get all folders for a workspace",
+		PreRunE: checkPreReqConfig(config),
+		RunE:    foldersFunc(clickSvc, config),
 	}
 }
 

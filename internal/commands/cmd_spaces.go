@@ -9,10 +9,11 @@ import (
 
 func spacesCmd(clickSvc clickupClient, config Config) *cobra.Command {
 	return &cobra.Command{
-		Use:   "spaces",
-		Short: "get all of a workspace's (teams) spaces",
-		Long:  "get all of a workspace's (teams) spaces",
-		RunE:  spacesFunc(clickSvc, config),
+		Use:     "spaces",
+		Short:   "get all of a workspace's (teams) spaces",
+		Long:    "get all of a workspace's (teams) spaces",
+		PreRunE: checkPreReqConfig(config),
+		RunE:    spacesFunc(clickSvc, config),
 	}
 }
 

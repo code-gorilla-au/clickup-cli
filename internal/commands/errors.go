@@ -3,7 +3,7 @@ package commands
 import "errors"
 
 var (
-	ErrNoToken   = errors.New("no token")
-	ErrNoTeamID  = errors.New("no team / workspace id")
-	ErrNoSpaceID = errors.New("no space id")
+	ErrNoToken       = errors.New("personal access token is required")
+	ErrNoWorkspaceID = errors.New("workspace id is required")
+	ErrNoSpaceID     = errors.New("workspace space id is required")
 )
