@@ -38,7 +38,7 @@ func Execute(storeSvc *store.Service, clickSvc clickupClient) error {
 	configCmd.PersistentFlags().StringVarP(&teamIDFlag, "team-id", "i", "", "your workspace / team id")
 
 	// add commands
-	rootCmd.AddCommand(foldersCmd())
+	rootCmd.AddCommand(foldersCmd(clickSvc, config))
 	rootCmd.AddCommand(spacesCmd(clickSvc, config))
 	rootCmd.AddCommand(teamsCmd(storeSvc, clickSvc, config))
 	rootCmd.AddCommand(configCmd)

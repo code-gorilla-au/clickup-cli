@@ -115,3 +115,7 @@ type Folder struct {
 	TaskCount        int         `json:"task_count,omitempty"`
 	Lists            []List      `json:"lists,omitempty"`
 }
+
+type Folders struct {
+	Folders []Folder `json:"folders,omitempty"`
+}

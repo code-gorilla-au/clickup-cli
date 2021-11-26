@@ -1,15 +1,9 @@
 package commands
 
 import (
-	"errors"
 	"log"
 
 	"github.com/spf13/cobra"
-)
-
-var (
-	ErrNoToken  = errors.New("no token")
-	ErrNoTeamID = errors.New("no team / workspace id")
 )
 
 func configCmd(ss storage) *cobra.Command {

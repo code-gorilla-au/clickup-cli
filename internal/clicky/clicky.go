@@ -72,9 +72,9 @@ func (s *Service) GetSpaces(workID string, token string) (Spaces, error) {
 	return spaces, nil
 }
 
-func (s *Service) GetFolders(spaceID string, token string) ([]Folder, error) {
+func (s *Service) GetFolders(spaceID string, token string) (Folders, error) {
 	url := fmt.Sprintf("%s/%s/folder", foldersURL, spaceID)
-	folders := []Folder{}
+	var folders Folders
 	resp, err := s.fetch.Get(url, map[string]string{
 		"Authorization": token,
 	})
