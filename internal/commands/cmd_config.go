@@ -44,6 +44,7 @@ func configFunc(ss storage) cmdWithErrorFunc {
 			log.Println("Error saving token")
 			return err
 		}
+		log.Println("Config setup complete")
 		return nil
 	}
 }
