@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func foldersCmd(clickSvc clickupClient, config Config) *cobra.Command {
+func foldersCmd(clickSvc clickUpClient, config Config) *cobra.Command {
 	return &cobra.Command{
 		Use:     "folders <space-id>",
 		Short:   "Get all folders for a workspace",
@@ -17,7 +17,7 @@ func foldersCmd(clickSvc clickupClient, config Config) *cobra.Command {
 	}
 }
 
-func foldersFunc(clickSvc clickupClient, config Config) cmdWithErrorFunc {
+func foldersFunc(clickSvc clickUpClient, config Config) cmdWithErrorFunc {
 	return func(cmd *cobra.Command, args []string) error {
 
 		if len(args) == 0 {

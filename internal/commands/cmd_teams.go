@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func teamsCmd(storeSvc storage, clickSvc clickupClient, config Config) *cobra.Command {
+func teamsCmd(storeSvc storage, clickSvc clickUpClient, config Config) *cobra.Command {
 	return &cobra.Command{
 		Use:   "teams",
 		Short: "Get all of the user's workspace (teams)",
@@ -20,7 +20,7 @@ func teamsCmd(storeSvc storage, clickSvc clickupClient, config Config) *cobra.Co
 	}
 }
 
-func teamsFunc(clickSvc clickupClient, config Config) cmdWithErrorFunc {
+func teamsFunc(clickSvc clickUpClient, config Config) cmdWithErrorFunc {
 	return func(cmd *cobra.Command, args []string) error {
 		resp, err := clickSvc.GetAllWorkspaces(config.Token)
 		if err != nil {

@@ -29,7 +29,7 @@ func init() {
 	rootCmd.PersistentFlags().BoolVarP(&dryrunFlag, "dry-run", "d", false, "run the cli in dry run mode")
 }
 
-func Execute(storeSvc *store.Service, clickSvc clickupClient) error {
+func Execute(storeSvc *store.Service, clickSvc clickUpClient) error {
 	config, err := loadConfig(storeSvc)
 	if err != nil {
 		log.Println("Error loading config ", err)

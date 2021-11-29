@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-func spacesCmd(clickSvc clickupClient, config Config) *cobra.Command {
+func spacesCmd(clickSvc clickUpClient, config Config) *cobra.Command {
 	return &cobra.Command{
 		Use:     "spaces",
 		Short:   "get all of a workspace's (teams) spaces",
@@ -17,7 +17,7 @@ func spacesCmd(clickSvc clickupClient, config Config) *cobra.Command {
 	}
 }
 
-func spacesFunc(clickSvc clickupClient, config Config) cmdWithErrorFunc {
+func spacesFunc(clickSvc clickUpClient, config Config) cmdWithErrorFunc {
 	return func(cmd *cobra.Command, args []string) error {
 		resp, err := clickSvc.GetSpaces(config.DefaultWorkspaceID, config.Token)
 		if err != nil {

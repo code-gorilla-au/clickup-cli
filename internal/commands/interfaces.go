@@ -4,7 +4,7 @@ import (
 	"github.com/code-gorilla-au/clickup-cli/internal/clicky"
 )
 
-type clickupClient interface {
+type clickUpClient interface {
 	GetAllWorkspaces(token string) (clicky.Teams, error)
 	GetSpaces(workID string, token string) (clicky.Spaces, error)
 	GetFolders(spaceID string, token string) (clicky.Folders, error)
